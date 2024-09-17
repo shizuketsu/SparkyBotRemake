@@ -1,0 +1,37 @@
+{
+  "include": ["src/**/*"],
+  "exclude": ["build", "node_modules"],
+
+  "compilerOptions": {
+    "target": "ES2016",
+    "module": "CommonJS",
+    "allowJs": false,
+    "declaration": false,
+    "declarationMap": false,
+    "outDir": "build",
+    "resolveJsonModule": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "useUnknownInCatchVariables": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+
+    "emitDeclarationOnly": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
