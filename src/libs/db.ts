@@ -6,7 +6,9 @@ export default class db {
         private pass:string,
         private host:string,
         private dbname:string
-    ) {}
+    ) {
+        this.createConnection();
+    }
 
     public async createConnection() {
         this.connection = await mysql.createConnection({
