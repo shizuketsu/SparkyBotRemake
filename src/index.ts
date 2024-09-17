@@ -1,28 +1,8 @@
-import { Client as DiscordClient, Collection, GatewayIntentBits } from "discord.js";
 import fs from "fs";
 import path from "path";
 import database from "./libs/db";
+import Client from "./libs/client";
 import params from "../config.json";
-
-interface IClient extends DiscordClient {
-    commands: Collection<string, any>;
-}
-
-class Client extends DiscordClient implements IClient {
-    public commands: Collection<string, any>;
-
-    constructor() {
-        super({
-            intents: [
-                GatewayIntentBits.Guilds,
-                GatewayIntentBits.GuildMessages,
-                GatewayIntentBits.MessageContent,
-            ],
-        });
-
-        this.commands = new Collection<string, any>();
-    }
-}
 
 const client = new Client();
 const commandFiles:ReadonlyArray<string> = fs.readdirSync(path.join(__dirname, "commands")).filter((e) => e.endsWith('.ts'));
