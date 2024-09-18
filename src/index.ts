@@ -8,9 +8,8 @@ import params from "../config.json";
 const client = new Client();
 const cmanage = new Commands();
 const commandFiles:ReadonlyArray<string> = fs.readdirSync(path.join(__dirname, "commands")).filter((e) => e.endsWith('.ts')); 
-
-// @ts-ignore
-const db = new database(params.db.userName, params.db.password, params.db.host, params.db.dbname); 
+const db = new database(params.db.userName, params.db.password, params.db.host, params.db.dbname, () => console.log('db connection was created'));
+const serverCache = new Map<string, any>();
 
 for(const file of commandFiles) { 
     const module = require(path.join(__dirname, "commands", file));
@@ -21,12 +20,22 @@ for(const file of commandFiles) {
 
 client.once("ready", () => { 
     client.user?.setPresence({ status: "idle" }); 
-    console.log("Bot was started at " + client.user?.tag); 
+    console.log("Bot was started at " + client.user?.tag);
 }); 
 
 client.on('messageCreate', async (msg) => { 
     if(msg.author.bot) return; 
 
+    if (!serverCache.has(<string>msg.guildId)) {
+        const r = await db.query('SELECT * FROM servers WHERE serverID = ?', [msg.guildId]);
+        if (r.rowCount < 1) {
+            await db.query('INSERT INTO servers (serverID, prefix) VALUES (?, ?)', [msg.guildId, '.']);
+            serverCache.set(<string>msg.guildId, { serverID: msg.guildId, prefix: '.' });
+        } else {
+            serverCache.set(<string>msg.guildId, r.rows[0]);
+        }
+    }
+    
     if(msg.content.startsWith(params.prefix)) { 
         const args:Array<string> = msg.content.slice(params.prefix.length).trim().split(/ +/); 
         const commandName:string = <string>args.shift()?.toLowerCase(); 
@@ -34,8 +43,7 @@ client.on('messageCreate', async (msg) => {
         const command = cmanage.cget(commandName); 
         
         try {
-            console.log('1');
-            command?.obj.execute(msg, args);
+            command?.obj.execute(msg, args, db);
         } catch(e) { 
             console.log(e); msg.reply('command err'); 
         } 
