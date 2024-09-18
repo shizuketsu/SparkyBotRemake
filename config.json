@@ -1,0 +1,10 @@
+{
+    "token": "YOUR TOKEN",
+    "prefix": ".",
+    "db": {
+        "userName": "username",
+        "password": "pass",
+        "host": "localhost",
+        "dbname": "dbname"
+    }
+}
