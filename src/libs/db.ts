@@ -39,5 +39,5 @@ export default class db {
         if(this.connection) await this.connection.end();
     }
 
-    public connection!: mysql.Connection;
+    private connection!: mysql.Connection;
 }

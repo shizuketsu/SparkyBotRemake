@@ -40,7 +40,6 @@ export default {
                     const r = await db.query('SELECT * FROM users WHERE userID = ? AND serverID = ?', [collected.author.id, collected.guildId]);
                         
                     if(r.rows.length < 1) {
-                        console.log('2');
                         newPts = Number(pts);
                         await db.query('INSERT INTO users (userID, serverID, points) VALUES (?, ?, ?)', [collected.author.id, collected.guildId, Number(pts)]);
                     } else {
