@@ -6,7 +6,7 @@ export default {
         const embed:EmbedBuilder = new EmbedBuilder()
             .setColor('#ffbe79')
             .setTitle('Commands:')
-            .setDescription('**:grey_question: Guess**\nGuess Geometry Dash Levels from pictures to get points! Use .guess\n\n**:bust_in_silhouette: Profile**\nView other players scores while competing with them. Use .profile')
+            .setDescription('**:grey_question: Guess**\nGuess Geometry Dash Levels from pictures to get points! Use .guess\n\n**:bust_in_silhouette: Profile**\nView other players scores while competing with them. Use .profile\n\n**:paperclip: Prefix**\nChange the bot prefix for convenience. Use .prefix')
             .setFooter({ text: 'Requested by ' + msg.author.username, iconURL: msg.author.displayAvatarURL() });
 
         msg.reply({ embeds: [embed] });
