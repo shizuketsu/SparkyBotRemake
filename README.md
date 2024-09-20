@@ -13,16 +13,16 @@ An unofficial remake of the Sparky discord bot for guessing levels in the comput
 3. Import database.sql into your database
 4. Open the console and enter the following there
 ```
-  cd C:\PATHTOYOURDIR
-  npm install
-  npm start
+cd C:\PATHTOYOURDIR
+npm install
+npm start
 ```
 
 ## How to add new levels for guess?
 Add a new line to levels.txt, where the last parameter is the image link. Difficulties: easy, normal, hard
 
 ```
-  id;lvlname;username;difficult;link
+id;lvlname;username;difficult;link
 ```
 
 ## License
